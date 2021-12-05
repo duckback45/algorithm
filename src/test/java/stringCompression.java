@@ -5,70 +5,91 @@ import static org.junit.Assert.assertEquals;
 
 public class stringCompression {
     public int solution(String s){
-        int count = 1;
-        int answer = 0;
+
+        if(s.length() == 1){
+            return 1;
+        } else if (s.length() == 2){
+            return 2;
+        }
+
+        int answer = s.length();
+        int loopCount = 1;
+        String word = s;
 
         do {
-            int loopCnt = count;
-            int wordCount = 0;
-            StringBuilder word= new StringBuilder();
-            String lastWord = "";
-            String matched = "";
-            for (int i = 0; s.length() >= loopCnt + count; ) {
-                if (s.substring(i, loopCnt).equals(s.substring(i + count, loopCnt + count))) {
-
-                    wordCount += 1;
-                        matched = s.substring(i, loopCnt);
-
-                    if(s.length() <= loopCnt + count + count)
-                        word.append(wordCount + 1).append(matched);
-
+            word = s;
+            int matchedCount = 0;
+            StringBuffer compressionWord = new StringBuffer();
+            String matchedWord = "";
+            while (true) {
+                if (word.substring(0, loopCount).equals(word.substring(loopCount, loopCount + loopCount))) {
+                    matchedCount += 1;
+                    matchedWord = word.substring(0, loopCount);
+                    word = word.substring(loopCount, word.length());
                 } else {
-                    if(!matched.isEmpty()){
-                        word.append(wordCount + 1).append(matched);
+                    if (matchedCount != 0) {
+                        compressionWord.append(matchedCount + 1).append(matchedWord);
+                        word = word.substring(loopCount , word.length());
+                    } else {
+                        compressionWord.append(word.substring(0, loopCount));
+                        word = word.substring(loopCount, word.length());
                     }
-                    if(!matched.equals(s.substring(i, loopCnt))){
-                        word.append(s.substring(i, loopCnt));
-                    }else if(!(loopCnt + count + count <= s.length() && i + count + count <= s.length())){
-                        if(!s.substring(i + count + count, loopCnt + count + count).equals(s.substring(i + count, loopCnt + count))){
-                            word.append(s.substring( i+ count, loopCnt + count));
-                        }
-                    }
-                    wordCount = 0;
-                     matched = "";
+                    matchedCount = 0;
+                    matchedWord = "";
                 }
 
-                loopCnt += count;
-                i += count;
+                if(word.length() < loopCount + loopCount){
+                    if(matchedCount != 0) {
+                        compressionWord.append(matchedCount + 1).append(matchedWord);
+                    }else {
+                        compressionWord.append(word.substring(0, loopCount));
+                    }
+                    if(s.length()%loopCount !=0){
+                        compressionWord.append(s.substring(s.length()-s.length()%loopCount,s.length()));
+                    }
 
+                    answer = Math.min(answer,compressionWord.length());
+                    break;
+                }
             }
-            if(count == 1 || answer == 0){
-                answer = word.length();
-            }
+                loopCount += 1;
 
-
-            if(word.length() < answer ){
-                answer = word.length();
-                System.out.println(word);
-                System.out.println(answer);
-            }
-
-
-            count += 1;
-
-
-        } while ((s.length()/2) >= count);
-
-        return (answer == 0 ? s.length() : answer);
+        }while (loopCount <= s.length()/2);
+        return answer;
     }
 
     @Test
     public void _test (){
-       // assertEquals(7, solution("aabbaccc"));
+        assertEquals(9,solution("acacacacaccccciiii"));
+        assertEquals(6,solution("aaaaaaaaaabbbbbbbbbb"));
+        assertEquals(9,solution("xztjabcdabcd"));
+        assertEquals(14,solution("abrabcabcadqabcabc"));
+        assertEquals(5,solution("aababa"));
+        assertEquals(1, solution("s"));
+        assertEquals(7, solution("aabbaccc"));
         assertEquals(9, solution("ababcdcdababcdcd"));
         assertEquals(8, solution("abcabcdede"));
         assertEquals(14, solution("abcabcabcabcdededededede"));
         assertEquals(17, solution("xababcdcdababcdcd"));
+        assertEquals(17, solution("xababcdcdababcdcd"));
+        assertEquals(2, solution("xxxxx"));
+        assertEquals(3, solution("zxxxxx"));
+        assertEquals(6, solution("zaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaz"));
+        assertEquals(9, solution("acacacbacacac"));
+        assertEquals(9, solution("acacacacacacbacacacacacac"));
+        assertEquals(15, solution("bbbbbzzzzzzaaaaaaaaaaaaaaaaaaaaffcccaiai"));
+        assertEquals(4, solution("zaaaaaaaaaa"));
+        assertEquals(5, solution("faabab"));
+        assertEquals(4, solution("xaxaxaxaxaa"));
+        assertEquals(4, solution("cwid"));
+        assertEquals(7, solution("aaaaaaaaaaaaaaabbbbbbbbbbc"));
+        assertEquals(5, solution("acdhdh"));
+        assertEquals(7, solution("abcdefg"));
+
+
+
+
+
 
     }
 }
