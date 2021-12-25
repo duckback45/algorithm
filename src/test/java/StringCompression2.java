@@ -2,7 +2,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-public class stringCompression2 {
+public class StringCompression2 {
     public int solution(String s) {
         // 1. 최소 문자열을 찾기 위한 비교 변수.
         int answer =Integer.MAX_VALUE;

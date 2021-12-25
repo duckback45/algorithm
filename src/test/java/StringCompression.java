@@ -3,7 +3,7 @@ import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
 
-public class stringCompression {
+public class StringCompression {
     public int solution(String s){
 
         if(s.length() == 1){

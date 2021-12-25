@@ -2,7 +2,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-public class stringCompressionMinTime {
+public class StringCompressionMinTime {
         public int solution(String s) {
             int min = s.length();
             int len = s.length()/2+1;

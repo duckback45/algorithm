@@ -3,7 +3,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-public class word124 {
+public class Number124OfCountry {
     public String solution(int n) {
         String answer = "";
         String[] numbers = {"4", "1", "2"};
